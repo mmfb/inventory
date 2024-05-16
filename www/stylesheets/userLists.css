@@ -1,0 +1,12 @@
+body > main {
+    display: flex;
+    justify-content: space-around;
+}
+
+body > main > section > header {
+    text-align: center;
+}
+body > main > section {
+    width: 40%;
+    border: 2px solid black;
+}
