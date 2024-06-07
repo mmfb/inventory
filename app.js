@@ -9,6 +9,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'www')));
 
+let usersRoutes = require("./routes/usersRoutes");
+
+app.use("/api/users",usersRoutes);
+
 // when we don't find anything
 app.use((req, res, next) => {
     res.status(404).send({ msg: "No resource or page found." });

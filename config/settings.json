@@ -1,5 +1,16 @@
 {
     "server": {
         "port": 3000
+    },
+    "database": {
+        "host": "localhost",
+        "user": "root",
+        "database": "inventory",
+        "password": "root",
+        "port":3306,
+        "connectionLimit": 20
+    },
+    "auth": {
+        "saltRounds": 10
     }
 }
