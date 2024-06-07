@@ -1,9 +1,15 @@
 var express = require('express');
 var path = require('path');
 var morgan = require('morgan');
+var cookieSession = require('cookie-session');
 var settings = require("./config/settings.json").server;
 var app = express();
 
+app.use(cookieSession({
+    name: 'session',
+    secret: settings.cookieSecret,
+    maxAge: settings.maxAge
+  }));
 app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
