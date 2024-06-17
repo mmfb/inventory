@@ -5,19 +5,30 @@ var cookieSession = require('cookie-session');
 var settings = require("./config/settings.json").server;
 var app = express();
 
+
 app.use(cookieSession({
     name: 'session',
     secret: settings.cookieSecret,
     maxAge: settings.maxAge
-  }));
+  }))
 app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'www')));
 
-let usersRoutes = require("./routes/usersRoutes");
+const hbs = require('hbs');
+hbs.registerPartials(path.join(__dirname, 'views/partials'));
+app.set('views', './views');
+app.set('view engine', 'hbs');
 
-app.use("/api/users",usersRoutes);
+app.get(['/','/index.html'], (req, res) => { res.render('index'); });
+app.get('/storage.html', (req, res) => { res.render('storage'); });
+
+const usersRouter = require("./routes/usersRoutes");
+const storageRouter = require("./routes/storageRoutes");
+
+app.use("/api/users",usersRouter);
+app.use("/api/storages",storageRouter);
 
 // when we don't find anything
 app.use((req, res, next) => {
